@@ -36,7 +36,7 @@ def create_posts(post: schemas.PostCreate, db: Session = Depends(get_db), user_i
 def get_post(id: int, response: Response, db: Session = Depends(get_db), user_id: int = Depends(oauth2.get_current_user)):
 #    cursor.execute("""SELECT * FROM posts WHERE id = %s """, (str(id)))
 #    post = cursor.fetchone()
-
+    print(user_id) 
     post = db.query(models.Post).filter(models.Post.id == id).first()
 
     if not post:
@@ -50,6 +50,7 @@ def delete_post(id: int, db: Session = Depends(get_db), user_id: int = Depends(o
 #    cursor.execute("""DELETE FROM posts WHERE id = %s returning *""", (str(id),))
 #    deleted_post= cursor.fetchone()
 #    conn.commit()
+    print(user_id)
     post = db.query(models.Post).filter(models.Post.id == id)
 
     if post.first() == None:
@@ -69,6 +70,7 @@ def update_post(id: int, updated_post: schemas.PostCreate, db: Session = Depends
 
 #    updated_post = cursor.fetchone()
 #    conn.commit()
+    print(user_id)
     post_query = db.query(models.Post).filter(models.Post.id == id) 
     post = post_query.first()
 
