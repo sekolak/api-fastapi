@@ -2,6 +2,7 @@ from pydantic import BaseModel, EmailStr
 from typing import Optional
 from datetime import datetime
 
+#Purpose : Define schema of response type
 class PostBase(BaseModel):
     title: str
     content: str
@@ -29,3 +30,16 @@ class UserOut(BaseModel):
     created_at: datetime
     class Config:
         orm_mode = True
+
+#JWT Response class
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
+    
+#Token response 
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+    
+class TokenData(BaseModel):
+    id: Optional[int] = None
