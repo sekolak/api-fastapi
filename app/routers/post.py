@@ -38,11 +38,19 @@ def get_post(id: int, response: Response, db: Session = Depends(get_db), current
 #    cursor.execute("""SELECT * FROM posts WHERE id = %s """, (str(id)))
 #    post = cursor.fetchone()
     print(current_user) 
-    post = db.query(models.Post).filter(models.Post.id == id).first()
+    
+    post_query = db.query(models.Post).filter(models.Post.id == id)
+    
+    post = post_query.first() 
+    
+    if post.owner() != current_user.id:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                        detail=f"Not authorized to perform requested action")
 
     if not post:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"post with id {id} was not found")
+    
     return post
 
 @router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
@@ -52,9 +60,9 @@ def delete_post(id: int, db: Session = Depends(get_db), current_user: int = Depe
 #    deleted_post= cursor.fetchone()
 #    conn.commit()
     print(current_user)
-    post_query = db.query(models.Post).filter(models.Post.id == id)
+    post_querys = db.query(models.Post).filter(models.Post.id == id)
     
-    post = post_query.first()
+    post = post_querys.first()
     
     if post.first() == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
@@ -64,7 +72,7 @@ def delete_post(id: int, db: Session = Depends(get_db), current_user: int = Depe
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN,
                         detail=f"Not authorized to perform requested action")
     
-    post_query.delete(synchronize_session=False)
+    post_querys.delete(synchronize_session=False)
     
     db.commit()
 
