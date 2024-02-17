@@ -2,23 +2,6 @@ from pydantic import BaseModel, EmailStr
 from typing import Optional
 from datetime import datetime
 
-#Purpose : Define schema of response type
-class PostBase(BaseModel):
-    title: str
-    content: str
-    published: bool = True
-    
-
-class PostCreate(PostBase):
-    pass
-
-#response
-class Post(PostBase):
-    id: int
-    created_at: datetime
-    owner_id: int
-    class Config:
-        orm_mode = True
 
 #first user class
 class UserCreate(BaseModel):
@@ -45,3 +28,23 @@ class Token(BaseModel):
     
 class TokenData(BaseModel):
     id: Optional[int] = None
+
+#Purpose : Define schema of response type
+class PostBase(BaseModel):
+    title: str
+    content: str
+    published: bool = True
+    
+
+class PostCreate(PostBase):
+    pass
+
+#response
+class Post(PostBase):
+    id: int
+    created_at: datetime
+    owner_id: int
+    owner: UserOut
+    class Config:
+        orm_mode = True
+
