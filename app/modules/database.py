@@ -21,3 +21,18 @@ def get_db():
         db.close()
 
 
+# For archive, this bloc give us possibility to connect a database without using sqlalchemy
+
+
+#while True:
+
+#    try:
+#        conn = psycopg2.connect(host='localhost', database='fastapi', user='postgres', password='postgres', 
+#                                cursor_factory=RealDictCursor)
+#        cursor = conn.cursor()
+#        print ("Database connection was succesfull !!")
+#        break
+#    except Exception as error:
+#        print("Connection to database failed")
+#        print("Error; ", error)
+#        time.sleep(2)
