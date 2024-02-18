@@ -1,5 +1,6 @@
 from fastapi import FastAPI
-from modules.database import engine
+from fastapi.middleware.cors import CORSMiddleware
+from modules.database import engine, 
 from modules import models
 from routers import post, user, auth, vote
 from modules.config import Settings
@@ -7,7 +8,17 @@ from modules.config import Settings
 
 models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI()  
+app = FastAPI() 
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*'],
+) 
         
 app.include_router(post.router)
 app.include_router(user.router)
