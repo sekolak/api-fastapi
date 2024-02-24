@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from modules.database import engine, 
+from modules.database import engine 
 from modules import models
 from routers import post, user, auth, vote
 from modules.config import Settings
