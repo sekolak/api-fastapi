@@ -25,6 +25,7 @@ RUN set -eux; \
 		dpkg-dev dpkg \
 		expat-dev \
 		findutils \
+		fish \
 		gcc \
 		gdbm-dev \
 		libc-dev \
@@ -39,9 +40,11 @@ RUN set -eux; \
 		readline-dev \
 		sqlite-dev \
 		tcl-dev \
+		tmux \
 		tk \
 		tk-dev \
 		util-linux-dev \
+		vim \
 		xz-dev \
 		zlib-dev \
 	; \
