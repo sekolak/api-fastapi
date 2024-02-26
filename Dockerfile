@@ -33,12 +33,9 @@ RUN set -eux; \
 		libnsl-dev \
 		libtirpc-dev \
 		linux-headers \
-		make \
 		ncurses-dev \
-		openssl-dev \
 		pax-utils \
 		readline-dev \
-		sqlite-dev \
 		tcl-dev \
 		tmux \
 		tk \
