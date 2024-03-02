@@ -5,9 +5,9 @@ services:
     image: postgres:latest
     restart: always
     environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ./db_password
+      POSTGRES_USER: ./db_user
+      POSTGRES_PASSWORD: ./postgres_password
     ports:
       - "5432:5432"
     volumes:
@@ -17,12 +17,24 @@ services:
     image: dpage/pgadmin4:latest
     restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: name@example.com
-      PGADMIN_DEFAULT_PASSWORD: postgres
+      PGADMIN_DEFAULT_EMAIL: ./pgadmin_mail
+      PGADMIN_DEFAULT_PASSWORD: ./pgadmin_password
     ports:
       - "5050:80"
     depends_on:
       - bdd_api
+
+secrets:
+    db_password:
+     file: db_password.txt
+    db_user:
+     file: db_user.txt
+    postgres_password:
+     file: postgres_password.txt
+    pg_password:
+     file: pgadmin_password.txt
+    pg_mail:
+     file: pgadmin_mail.txt
 
 volumes:
   db_data:
